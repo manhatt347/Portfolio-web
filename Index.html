@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Escritorio Demo</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(160deg, #49c5b6 0%, #3aa89c 60%, #2c8880 100%);
+    font-family: 'Courier New', monospace;
+    user-select: none;
+  }
+
+  /* Barra superior tipo menubar */
+  .menubar {
+    height: 28px;
+    background: rgba(20,20,20,0.85);
+    color: #ECD06F;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    justify-content: space-between;
+  }
+
+  /* Iconos de carpetas en el escritorio */
+  .desktop {
+    position: relative;
+    height: calc(100vh - 28px - 46px);
+    padding: 24px;
+  }
+  .folder {
+    width: 84px;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    display: inline-block;
+    margin: 0 12px 12px 0;
+  }
+  .folder-icon {
+    width: 52px;
+    height: 42px;
+    margin: 0 auto 6px;
+    background: #ECD06F;
+    border-radius: 3px 6px 6px 6px;
+    position: relative;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    transition: transform 0.15s ease;
+  }
+  .folder-icon::before {
+    content: '';
+    position: absolute;
+    top: -8px; left: 0;
+    width: 24px; height: 8px;
+    background: #ECD06F;
+    border-radius: 3px 3px 0 0;
+  }
+  .folder:hover .folder-icon { transform: translateY(-3px) scale(1.05); }
+  .folder-label { font-size: 12px; }
+
+  /* Ventana */
+  .window {
+    position: absolute;
+    top: 90px;
+    left: 140px;
+    width: 380px;
+    min-width: 220px;
+    min-height: 160px;
+    background: #f4f1ea;
+    border-radius: 8px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .window.open { display: flex; }
+  .window-titlebar {
+    height: 34px;
+    background: #2c2c2c;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    cursor: move;
+    gap: 8px;
+  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; cursor: pointer; }
+  .dot.close { background: #D14836; }
+  .dot.min   { background: #ECD06F; }
+  .dot.zoom  { background: #49c5b6; }
+  .window-title {
+    color: #eee;
+    font-size: 12px;
+    margin-left: 4px;
+    flex: 1;
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+  .window-body {
+    padding: 18px;
+    color: #2c2c2c;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow: auto;
+  }
+  .window-body h3 { margin-top: 0; font-family: Georgia, serif; }
+  .resize-handle {
+    position: absolute;
+    width: 16px; height: 16px;
+    right: 0; bottom: 0;
+    cursor: nwse-resize;
+  }
+
+  /* Dock inferior */
+  .dock {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 46px;
+    background: rgba(20,20,20,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+  .dock-icon {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    background: #ECD06F;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+  .dock-icon:hover { transform: translateY(-6px) scale(1.1); }
+</style>
+</head>
+<body>
+
+<div class="menubar">
+  <span>🖥 Escritorio Demo</span>
+  <span id="clock">--:--</span>
+</div>
+
+<div class="desktop">
+  <div class="folder" onclick="openWindow('proyectos')">
+    <div class="folder-icon"></div>
+    <div class="folder-label">Proyectos</div>
+  </div>
+  <div class="folder" onclick="openWindow('about')">
+    <div class="folder-icon"></div>
+    <div class="folder-label">Sobre mí</div>
+  </div>
+  <div class="folder" onclick="openWindow('contacto')">
+    <div class="folder-icon"></div>
+    <div class="folder-label">Contacto</div>
+  </div>
+</div>
+
+<div class="dock">
+  <div class="dock-icon" onclick="openWindow('proyectos')"></div>
+  <div class="dock-icon" onclick="openWindow('about')"></div>
+  <div class="dock-icon" onclick="openWindow('contacto')"></div>
+</div>
+
+<!-- Ventanas -->
+<div class="window" id="win-proyectos" style="top:80px; left:120px;">
+  <div class="window-titlebar" data-win="proyectos">
+    <div class="dot close" onclick="closeWindow('proyectos')"></div>
+    <div class="dot min"></div>
+    <div class="dot zoom"></div>
+    <div class="window-title">Proyectos</div>
+  </div>
+  <div class="window-body">
+    <h3>Portfolio</h3>
+    <p>Acá iría la grilla de proyectos: imágenes, casos de estudio, links. Arrastrame desde la barra de título y cambiame de tamaño desde la esquina.</p>
+  </div>
+  <div class="resize-handle"></div>
+</div>
+
+<div class="window" id="win-about" style="top:130px; left:260px;">
+  <div class="window-titlebar" data-win="about">
+    <div class="dot close" onclick="closeWindow('about')"></div>
+    <div class="dot min"></div>
+    <div class="dot zoom"></div>
+    <div class="window-title">Sobre mí</div>
+  </div>
+  <div class="window-body">
+    <h3>Quién soy</h3>
+    <p>Un párrafo de presentación, estilo, trayectoria, clientes destacados. El contenido va acá dentro, como cualquier ventana de sistema operativo.</p>
+  </div>
+  <div class="resize-handle"></div>
+</div>
+
+<div class="window" id="win-contacto" style="top:180px; left:180px;">
+  <div class="window-titlebar" data-win="contacto">
+    <div class="dot close" onclick="closeWindow('contacto')"></div>
+    <div class="dot min"></div>
+    <div class="dot zoom"></div>
+    <div class="window-title">Contacto</div>
+  </div>
+  <div class="window-body">
+    <h3>Hablemos</h3>
+    <p>hello@ejemplo.com<br>Instagram · LinkedIn · Behance</p>
+  </div>
+  <div class="resize-handle"></div>
+</div>
+
+<script>
+  // Reloj en tiempo real
+  function tick() {
+    const d = new Date();
+    document.getElementById('clock').textContent =
+      d.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+  }
+  tick();
+  setInterval(tick, 1000 * 30);
+
+  let topZ = 10;
+
+  function openWindow(id) {
+    const win = document.getElementById('win-' + id);
+    win.classList.add('open');
+    focusWindow(win);
+  }
+  function closeWindow(id) {
+    document.getElementById('win-' + id).classList.remove('open');
+  }
+  function focusWindow(win) {
+    topZ++;
+    win.style.zIndex = topZ;
+  }
+
+  // Arrastrar ventanas
+  document.querySelectorAll('.window-titlebar').forEach(bar => {
+    bar.addEventListener('mousedown', startDrag);
+  });
+
+  function startDrag(e) {
+    if (e.target.classList.contains('dot')) return; // no arrastrar si clickea un botón
+    const win = e.currentTarget.closest('.window');
+    focusWindow(win);
+    const rect = win.getBoundingClientRect();
+    const offsetX = e.clientX - rect.left;
+    const offsetY = e.clientY - rect.top;
+
+    function onMove(ev) {
+      win.style.left = (ev.clientX - offsetX) + 'px';
+      win.style.top = (ev.clientY - offsetY) + 'px';
+    }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  }
+
+  // Redimensionar ventanas
+  document.querySelectorAll('.resize-handle').forEach(handle => {
+    handle.addEventListener('mousedown', startResize);
+  });
+
+  function startResize(e) {
+    e.stopPropagation();
+    const win = e.target.closest('.window');
+    focusWindow(win);
+    const startX = e.clientX, startY = e.clientY;
+    const startW = win.offsetWidth, startH = win.offsetHeight;
+
+    function onMove(ev) {
+      win.style.width = Math.max(220, startW + (ev.clientX - startX)) + 'px';
+      win.style.height = Math.max(160, startH + (ev.clientY - startY)) + 'px';
+    }
+    function onUp() {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+  }
+
+  // Click en ventana la trae al frente
+  document.querySelectorAll('.window').forEach(win => {
+    win.addEventListener('mousedown', () => focusWindow(win));
+  });
+</script>
+
+</body>
+</html>
