@@ -50,6 +50,24 @@
     transition: transform 0.15s ease;
     display: block;
   }
+  .folder-icon-css {
+    width: 52px;
+    height: 42px;
+    margin: 0 auto 6px;
+    background: #ECD06F;
+    border-radius: 3px 6px 6px 6px;
+    position: relative;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    transition: transform 0.15s ease;
+  }
+  .folder-icon-css::before {
+    content: '';
+    position: absolute;
+    top: -8px; left: 0;
+    width: 24px; height: 8px;
+    background: #ECD06F;
+    border-radius: 3px 3px 0 0;
+  }
   .folder:hover .folder-icon { transform: translateY(-3px) scale(1.05); }
   .folder-label { font-size: 12px; }
 
