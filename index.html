@@ -367,15 +367,23 @@
 
   // Corrige el problema de 100vh en Safari/iPad, donde la altura real
   // no se recalcula sola al cambiar la barra de Safari o rotar la pantalla.
+  // Usa Visual Viewport API cuando está disponible, ya que es más precisa
+  // que window.innerHeight en iOS (Split View, barra de direcciones, etc.)
+  function getViewportHeight() {
+    return window.visualViewport ? window.visualViewport.height : window.innerHeight;
+  }
+  function getViewportWidth() {
+    return window.visualViewport ? window.visualViewport.width : window.innerWidth;
+  }
   function setViewportHeight() {
-    document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px');
+    document.documentElement.style.setProperty('--vh', (getViewportHeight() * 0.01) + 'px');
   }
   setViewportHeight();
 
   // Mantener las ventanas dentro de los límites cuando cambia el tamaño de la pantalla
   function clampWindowToViewport(win) {
-    const maxW = window.innerWidth;
-    const maxH = window.innerHeight;
+    const maxW = getViewportWidth();
+    const maxH = getViewportHeight();
 
     if (win.offsetWidth > maxW) {
       win.style.width = Math.max(220, maxW) + 'px';
@@ -406,6 +414,18 @@
   }
   window.addEventListener('resize', handleViewportChange);
   window.addEventListener('orientationchange', handleViewportChange);
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', handleViewportChange);
+    window.visualViewport.addEventListener('scroll', handleViewportChange);
+  }
+
+  // Respaldo robusto: observa el tamaño real de la página directamente,
+  // sin depender de eventos que puedan verse interferidos por una ventana
+  // modal con el puntero capturado (arrastre/resize en curso).
+  if (window.ResizeObserver) {
+    const ro = new ResizeObserver(() => handleViewportChange());
+    ro.observe(document.documentElement);
+  }
 
   function openWindow(id) {
     const win = document.getElementById('win-' + id);
@@ -455,6 +475,8 @@
       document.removeEventListener('pointermove', onMove);
       document.removeEventListener('pointerup', onUp);
       document.removeEventListener('pointercancel', onUp);
+      try { e.currentTarget.releasePointerCapture(e.pointerId); } catch (err) {}
+      handleViewportChange();
     }
     document.addEventListener('pointermove', onMove);
     document.addEventListener('pointerup', onUp);
@@ -490,6 +512,8 @@
       document.removeEventListener('pointermove', onMove);
       document.removeEventListener('pointerup', onUp);
       document.removeEventListener('pointercancel', onUp);
+      try { e.target.releasePointerCapture(e.pointerId); } catch (err) {}
+      handleViewportChange();
     }
     document.addEventListener('pointermove', onMove);
     document.addEventListener('pointerup', onUp);
