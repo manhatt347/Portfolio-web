@@ -131,6 +131,53 @@
     height: auto;
     object-fit: contain;
   }
+
+  /* Grilla de la tienda / colección */
+  .shop-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .shop-item {
+    background: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    display: flex;
+    flex-direction: column;
+  }
+  .shop-item img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    background: #f4f1ea;
+    padding: 10px;
+  }
+  .shop-item-info {
+    padding: 10px 12px 14px;
+    text-align: center;
+  }
+  .shop-item-title {
+    font-size: 13px;
+    font-weight: bold;
+    margin: 0 0 2px;
+  }
+  .shop-item-price {
+    font-size: 12px;
+    color: #555;
+    margin: 0 0 10px;
+  }
+  .shop-item-buy {
+    display: inline-block;
+    background: #2c2c2c;
+    color: #fff;
+    text-decoration: none;
+    font-size: 12px;
+    padding: 7px 16px;
+    border-radius: 20px;
+    transition: background 0.15s ease;
+  }
+  .shop-item-buy:hover { background: #49c5b6; }
   .resize-handle {
     position: absolute;
     width: 16px; height: 16px;
@@ -161,9 +208,9 @@
   /* Icono grande centrado de fondo */
   .hero-icon {
     position: absolute;
-    top: 50%;
+    bottom: 60px;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     width: min(60vw, 60vh);
     height: min(60vw, 60vh);
     object-fit: contain;
@@ -190,6 +237,10 @@
     <div class="folder-icon-css"></div>
     <div class="folder-label">Sobre mí</div>
   </div>
+  <div class="folder" onclick="openWindow('coleccion')">
+    <div class="folder-icon-css"></div>
+    <div class="folder-label">Colección</div>
+  </div>
   <div class="folder" onclick="openWindow('contacto')">
     <div class="folder-icon-css"></div>
     <div class="folder-label">Contacto</div>
@@ -199,6 +250,7 @@
 <div class="dock">
   <div class="dock-icon" onclick="openWindow('proyectos')"></div>
   <div class="dock-icon" onclick="openWindow('about')"></div>
+  <div class="dock-icon" onclick="openWindow('coleccion')"></div>
   <div class="dock-icon" onclick="openWindow('contacto')"></div>
 </div>
 
@@ -226,6 +278,36 @@
   <div class="window-body">
     <h3>Quién soy</h3>
     <p>Un párrafo de presentación, estilo, trayectoria, clientes destacados. El contenido va acá dentro, como cualquier ventana de sistema operativo.</p>
+  </div>
+  <div class="resize-handle"></div>
+</div>
+
+<div class="window" id="win-coleccion" style="top:70px; left:100px; width:460px;">
+  <div class="window-titlebar" data-win="coleccion">
+    <div class="dot close" onclick="closeWindow('coleccion')"></div>
+    <div class="dot min"></div>
+    <div class="dot zoom"></div>
+    <div class="window-title">Colección</div>
+  </div>
+  <div class="window-body">
+    <div class="shop-grid">
+      <div class="shop-item">
+        <img src="images/proyecto-icon-2.svg" alt="Obra 1">
+        <div class="shop-item-info">
+          <p class="shop-item-title">Nombre de la obra</p>
+          <p class="shop-item-price">$0.00 USD</p>
+          <a href="https://buy.stripe.com/REEMPLAZAR-LINK-1" class="shop-item-buy" target="_blank">Comprar</a>
+        </div>
+      </div>
+      <div class="shop-item">
+        <img src="images/proyecto-icon-2.svg" alt="Obra 2">
+        <div class="shop-item-info">
+          <p class="shop-item-title">Nombre de la obra</p>
+          <p class="shop-item-price">$0.00 USD</p>
+          <a href="https://buy.stripe.com/REEMPLAZAR-LINK-2" class="shop-item-buy" target="_blank">Comprar</a>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="resize-handle"></div>
 </div>
