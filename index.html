@@ -8,6 +8,7 @@
   body {
     margin: 0;
     height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
     overflow: hidden;
     background: linear-gradient(160deg, #f7f9f0 0%, #eaf5d0 55%, #cfe89a 100%);
     font-family: 'Courier New', monospace;
@@ -31,6 +32,7 @@
   .desktop {
     position: relative;
     height: calc(100vh - 28px - 46px);
+    height: calc(var(--vh, 1vh) * 100 - 28px - 46px);
     padding: 24px;
   }
   .folder {
@@ -338,6 +340,13 @@
 
   let topZ = 10;
 
+  // Corrige el problema de 100vh en Safari/iPad, donde la altura real
+  // no se recalcula sola al cambiar la barra de Safari o rotar la pantalla.
+  function setViewportHeight() {
+    document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px');
+  }
+  setViewportHeight();
+
   // Mantener las ventanas dentro de los límites cuando cambia el tamaño de la pantalla
   function clampWindowToViewport(win) {
     const maxW = window.innerWidth;
@@ -368,8 +377,12 @@
     document.querySelectorAll('.window.open').forEach(clampWindowToViewport);
   }
 
-  window.addEventListener('resize', clampAllOpenWindows);
-  window.addEventListener('orientationchange', clampAllOpenWindows);
+  function handleViewportChange() {
+    setViewportHeight();
+    clampAllOpenWindows();
+  }
+  window.addEventListener('resize', handleViewportChange);
+  window.addEventListener('orientationchange', handleViewportChange);
 
   function openWindow(id) {
     const win = document.getElementById('win-' + id);
