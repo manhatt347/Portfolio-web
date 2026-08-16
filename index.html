@@ -44,21 +44,11 @@
   }
   .folder-icon {
     width: 52px;
-    height: 42px;
+    height: 52px;
     margin: 0 auto 6px;
-    background: #ECD06F;
-    border-radius: 3px 6px 6px 6px;
-    position: relative;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    object-fit: contain;
     transition: transform 0.15s ease;
-  }
-  .folder-icon::before {
-    content: '';
-    position: absolute;
-    top: -8px; left: 0;
-    width: 24px; height: 8px;
-    background: #ECD06F;
-    border-radius: 3px 3px 0 0;
+    display: block;
   }
   .folder:hover .folder-icon { transform: translateY(-3px) scale(1.05); }
   .folder-label { font-size: 12px; }
@@ -145,15 +135,15 @@
 
 <div class="desktop">
   <div class="folder" onclick="openWindow('proyectos')">
-    <div class="folder-icon"></div>
+    <img src="images/folder-proyectos.png" class="folder-icon" alt="Proyectos">
     <div class="folder-label">Proyectos</div>
   </div>
   <div class="folder" onclick="openWindow('about')">
-    <div class="folder-icon"></div>
+    <div class="folder-icon-css"></div>
     <div class="folder-label">Sobre mí</div>
   </div>
   <div class="folder" onclick="openWindow('contacto')">
-    <div class="folder-icon"></div>
+    <div class="folder-icon-css"></div>
     <div class="folder-label">Contacto</div>
   </div>
 </div>
