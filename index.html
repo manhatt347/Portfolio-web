@@ -353,7 +353,8 @@
 
   // Arrastrar ventanas
   document.querySelectorAll('.window-titlebar').forEach(bar => {
-    bar.addEventListener('mousedown', startDrag);
+    bar.style.touchAction = 'none';
+    bar.addEventListener('pointerdown', startDrag);
   });
 
   function startDrag(e) {
@@ -363,6 +364,7 @@
     const rect = win.getBoundingClientRect();
     const offsetX = e.clientX - rect.left;
     const offsetY = e.clientY - rect.top;
+    e.currentTarget.setPointerCapture(e.pointerId);
 
     function onMove(ev) {
       const winW = win.offsetWidth;
@@ -380,16 +382,19 @@
       win.style.top = newTop + 'px';
     }
     function onUp() {
-      document.removeEventListener('mousemove', onMove);
-      document.removeEventListener('mouseup', onUp);
+      document.removeEventListener('pointermove', onMove);
+      document.removeEventListener('pointerup', onUp);
+      document.removeEventListener('pointercancel', onUp);
     }
-    document.addEventListener('mousemove', onMove);
-    document.addEventListener('mouseup', onUp);
+    document.addEventListener('pointermove', onMove);
+    document.addEventListener('pointerup', onUp);
+    document.addEventListener('pointercancel', onUp);
   }
 
   // Redimensionar ventanas
   document.querySelectorAll('.resize-handle').forEach(handle => {
-    handle.addEventListener('mousedown', startResize);
+    handle.style.touchAction = 'none';
+    handle.addEventListener('pointerdown', startResize);
   });
 
   function startResize(e) {
@@ -399,6 +404,7 @@
     const startX = e.clientX, startY = e.clientY;
     const startW = win.offsetWidth, startH = win.offsetHeight;
     const winRect = win.getBoundingClientRect();
+    e.target.setPointerCapture(e.pointerId);
 
     function onMove(ev) {
       const maxW = window.innerWidth - winRect.left;
@@ -411,16 +417,18 @@
       win.style.height = newH + 'px';
     }
     function onUp() {
-      document.removeEventListener('mousemove', onMove);
-      document.removeEventListener('mouseup', onUp);
+      document.removeEventListener('pointermove', onMove);
+      document.removeEventListener('pointerup', onUp);
+      document.removeEventListener('pointercancel', onUp);
     }
-    document.addEventListener('mousemove', onMove);
-    document.addEventListener('mouseup', onUp);
+    document.addEventListener('pointermove', onMove);
+    document.addEventListener('pointerup', onUp);
+    document.addEventListener('pointercancel', onUp);
   }
 
   // Click en ventana la trae al frente
   document.querySelectorAll('.window').forEach(win => {
-    win.addEventListener('mousedown', () => focusWindow(win));
+    win.addEventListener('pointerdown', () => focusWindow(win));
   });
 </script>
 
