@@ -338,10 +338,44 @@
 
   let topZ = 10;
 
+  // Mantener las ventanas dentro de los límites cuando cambia el tamaño de la pantalla
+  function clampWindowToViewport(win) {
+    const maxW = window.innerWidth;
+    const maxH = window.innerHeight;
+
+    // Si la ventana es más grande que la pantalla, la achicamos
+    if (win.offsetWidth > maxW) {
+      win.style.width = Math.max(220, maxW) + 'px';
+    }
+    if (win.offsetHeight > maxH) {
+      win.style.height = Math.max(160, maxH) + 'px';
+    }
+
+    // Recalcular límites de posición con el tamaño ya ajustado
+    const winW = win.offsetWidth;
+    const winH = win.offsetHeight;
+    const maxLeft = Math.max(maxW - winW, 0);
+    const maxTop = Math.max(maxH - winH, 0);
+
+    const currentLeft = win.offsetLeft;
+    const currentTop = win.offsetTop;
+
+    win.style.left = Math.min(Math.max(currentLeft, 0), maxLeft) + 'px';
+    win.style.top = Math.min(Math.max(currentTop, 0), maxTop) + 'px';
+  }
+
+  function clampAllOpenWindows() {
+    document.querySelectorAll('.window.open').forEach(clampWindowToViewport);
+  }
+
+  window.addEventListener('resize', clampAllOpenWindows);
+  window.addEventListener('orientationchange', clampAllOpenWindows);
+
   function openWindow(id) {
     const win = document.getElementById('win-' + id);
     win.classList.add('open');
     focusWindow(win);
+    clampWindowToViewport(win);
   }
   function closeWindow(id) {
     document.getElementById('win-' + id).classList.remove('open');
