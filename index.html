@@ -365,8 +365,19 @@
     const offsetY = e.clientY - rect.top;
 
     function onMove(ev) {
-      win.style.left = (ev.clientX - offsetX) + 'px';
-      win.style.top = (ev.clientY - offsetY) + 'px';
+      const winW = win.offsetWidth;
+      const winH = win.offsetHeight;
+      const maxLeft = window.innerWidth - winW;
+      const maxTop = window.innerHeight - winH;
+
+      let newLeft = ev.clientX - offsetX;
+      let newTop = ev.clientY - offsetY;
+
+      newLeft = Math.min(Math.max(newLeft, 0), Math.max(maxLeft, 0));
+      newTop = Math.min(Math.max(newTop, 0), Math.max(maxTop, 0));
+
+      win.style.left = newLeft + 'px';
+      win.style.top = newTop + 'px';
     }
     function onUp() {
       document.removeEventListener('mousemove', onMove);
@@ -387,10 +398,17 @@
     focusWindow(win);
     const startX = e.clientX, startY = e.clientY;
     const startW = win.offsetWidth, startH = win.offsetHeight;
+    const winRect = win.getBoundingClientRect();
 
     function onMove(ev) {
-      win.style.width = Math.max(220, startW + (ev.clientX - startX)) + 'px';
-      win.style.height = Math.max(160, startH + (ev.clientY - startY)) + 'px';
+      const maxW = window.innerWidth - winRect.left;
+      const maxH = window.innerHeight - winRect.top;
+
+      const newW = Math.min(Math.max(220, startW + (ev.clientX - startX)), maxW);
+      const newH = Math.min(Math.max(160, startH + (ev.clientY - startY)), maxH);
+
+      win.style.width = newW + 'px';
+      win.style.height = newH + 'px';
     }
     function onUp() {
       document.removeEventListener('mousemove', onMove);
