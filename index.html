@@ -27,6 +27,11 @@
     letter-spacing: 0.5px;
     justify-content: space-between;
   }
+  .menubar-logo {
+    height: 18px;
+    width: auto;
+    display: block;
+  }
 
   /* Iconos de carpetas en el escritorio */
   .desktop {
@@ -225,12 +230,12 @@
 <body>
 
 <div class="menubar">
-  <span>  H A T T L A S  </span>
+  <img src="images/hattlas-logo.png" class="menubar-logo" alt="HATTLAS">
   <span id="clock">--:--</span>
 </div>
 
 <div class="desktop">
-  <img src="images/folder-proyectos.png" class="hero-icon" alt="">
+  <img src="images/hattlas-logo.png" class="hero-icon" alt="">
   <div class="folder" onclick="openWindow('proyectos')">
     <img src="images/proyecto-icon-2.svg" class="folder-icon" alt="Proyectos">
     <div class="folder-label">Proyectos</div>
@@ -352,7 +357,6 @@
     const maxW = window.innerWidth;
     const maxH = window.innerHeight;
 
-    // Si la ventana es más grande que la pantalla, la achicamos
     if (win.offsetWidth > maxW) {
       win.style.width = Math.max(220, maxW) + 'px';
     }
@@ -360,7 +364,6 @@
       win.style.height = Math.max(160, maxH) + 'px';
     }
 
-    // Recalcular límites de posición con el tamaño ya ajustado
     const winW = win.offsetWidth;
     const winH = win.offsetHeight;
     const maxLeft = Math.max(maxW - winW, 0);
@@ -405,7 +408,7 @@
   });
 
   function startDrag(e) {
-    if (e.target.classList.contains('dot')) return; // no arrastrar si clickea un botón
+    if (e.target.classList.contains('dot')) return;
     const win = e.currentTarget.closest('.window');
     focusWindow(win);
     const rect = win.getBoundingClientRect();
