@@ -119,6 +119,18 @@
     overflow: auto;
   }
   .window-body h3 { margin-top: 0; font-family: Georgia, serif; }
+  .window-body-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .project-icon-inside {
+    width: 100%;
+    max-width: 260px;
+    height: auto;
+    object-fit: contain;
+  }
   .resize-handle {
     position: absolute;
     width: 16px; height: 16px;
@@ -198,9 +210,8 @@
     <div class="dot zoom"></div>
     <div class="window-title">Proyectos</div>
   </div>
-  <div class="window-body">
-    <h3>Portfolio</h3>
-    <p>Acá iría la grilla de proyectos: imágenes, casos de estudio, links. Arrastrame desde la barra de título y cambiame de tamaño desde la esquina.</p>
+  <div class="window-body window-body-icons">
+    <img src="images/proyecto-icon.svg" class="project-icon-inside" alt="Proyecto">
   </div>
   <div class="resize-handle"></div>
 </div>
