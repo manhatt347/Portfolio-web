@@ -9,7 +9,7 @@
     margin: 0;
     height: 100vh;
     overflow: hidden;
-    background: linear-gradient(160deg, #49c5b6 0%, #3aa89c 60%, #2c8880 100%);
+    background: linear-gradient(160deg, #f7f9f0 0%, #eaf5d0 55%, #cfe89a 100%);
     font-family: 'Courier New', monospace;
     user-select: none;
   }
@@ -41,11 +41,13 @@
     text-shadow: 0 1px 3px rgba(0,0,0,0.4);
     display: inline-block;
     margin: 0 12px 12px 0;
+    position: relative;
+    z-index: 1;
   }
   .folder-icon {
-    width: 52px;
-    height: 52px;
-    margin: 0 auto 6px;
+    width: 80px;
+    height: auto;
+    margin: 0 auto 8px;
     object-fit: contain;
     transition: transform 0.15s ease;
     display: block;
@@ -85,6 +87,7 @@
     display: none;
     flex-direction: column;
     overflow: hidden;
+    z-index: 5;
   }
   .window.open { display: flex; }
   .window-titlebar {
@@ -142,6 +145,20 @@
     transition: transform 0.15s ease;
   }
   .dock-icon:hover { transform: translateY(-6px) scale(1.1); }
+
+  /* Icono grande centrado de fondo */
+  .hero-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(60vw, 60vh);
+    height: min(60vw, 60vh);
+    object-fit: contain;
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: 0;
+  }
 </style>
 </head>
 <body>
@@ -152,6 +169,7 @@
 </div>
 
 <div class="desktop">
+  <img src="images/folder-proyectos.png" class="hero-icon" alt="">
   <div class="folder" onclick="openWindow('proyectos')">
     <img src="images/folder-proyectos.png" class="folder-icon" alt="Proyectos">
     <div class="folder-label">Proyectos</div>
