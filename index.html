@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<title>Escritorio Demo</title>
+<title>  H X T T L X S  </title>
+
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+
 <style>
   :root {
     --hero-size: min(60vw, 60vh);
@@ -99,6 +103,7 @@
     border-radius: 3px 3px 0 0;
   }
   .folder:hover .folder-icon { transform: translateY(-3px) scale(1.05); }
+  .folder:hover .folder-icon-css { transform: translateY(-3px) scale(1.05); }
   .folder-label { font-size: clamp(9px, calc(var(--hero-size) * 0.042), 18px); }
 
   /* Ventana */
@@ -160,52 +165,6 @@
     object-fit: contain;
   }
 
-  /* Grilla de la tienda / colección */
-  .shop-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-  .shop-item {
-    background: #fff;
-    border-radius: 6px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-    display: flex;
-    flex-direction: column;
-  }
-  .shop-item img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: contain;
-    background: #f4f1ea;
-    padding: 10px;
-  }
-  .shop-item-info {
-    padding: 10px 12px 14px;
-    text-align: center;
-  }
-  .shop-item-title {
-    font-size: 13px;
-    font-weight: bold;
-    margin: 0 0 2px;
-  }
-  .shop-item-price {
-    font-size: 12px;
-    color: #555;
-    margin: 0 0 10px;
-  }
-  .shop-item-buy {
-    display: inline-block;
-    background: #2c2c2c;
-    color: #fff;
-    text-decoration: none;
-    font-size: 12px;
-    padding: 7px 16px;
-    border-radius: 20px;
-    transition: background 0.15s ease;
-  }
-  .shop-item-buy:hover { background: #49c5b6; }
   .resize-handle {
     position: absolute;
     width: 16px; height: 16px;
@@ -304,8 +263,10 @@
     <div class="window-title">Sobre mí</div>
   </div>
   <div class="window-body">
-    <h3>Quién soy</h3>
-    <p>Un párrafo de presentación, estilo, trayectoria, clientes destacados. El contenido va acá dentro, como cualquier ventana de sistema operativo.</p>
+    <h3 class="text-lg font-serif mb-3">Quién soy</h3>
+    <p class="text-sm leading-relaxed text-zinc-700">
+      Un párrafo de presentación, estilo, trayectoria, clientes destacados. El contenido va acá dentro, como cualquier ventana de sistema operativo.
+    </p>
   </div>
   <div class="resize-handle"></div>
 </div>
@@ -317,24 +278,39 @@
     <div class="dot zoom"></div>
     <div class="window-title">Colección</div>
   </div>
-  <div class="window-body">
-    <div class="shop-grid">
-      <div class="shop-item">
-        <img src="images/proyecto-icon-2.svg" alt="Obra 1">
-        <div class="shop-item-info">
-          <p class="shop-item-title">Nombre de la obra</p>
-          <p class="shop-item-price">$0.00 USD</p>
-          <a href="https://buy.stripe.com/REEMPLAZAR-LINK-1" class="shop-item-buy" target="_blank">Comprar</a>
+  <div class="window-body !p-5">
+    <div class="grid grid-cols-2 gap-4">
+
+      <!-- Item 1 -->
+      <div class="bg-white rounded-lg overflow-hidden shadow-md flex flex-col">
+        <img src="images/proyecto-icon-2.svg" alt="Obra 1"
+             class="w-full aspect-square object-contain bg-[#f4f1ea] p-3">
+        <div class="p-3 text-center">
+          <p class="text-sm font-bold text-zinc-800 m-0 mb-0.5">Nombre de la obra</p>
+          <p class="text-xs text-zinc-500 m-0 mb-3">$0.00 USD</p>
+          <a href="https://buy.stripe.com/REEMPLAZAR-LINK-1" target="_blank"
+             class="inline-block bg-zinc-800 text-white text-xs px-4 py-1.5 rounded-full
+                    hover:bg-teal-500 transition-colors duration-150">
+            Comprar
+          </a>
         </div>
       </div>
-      <div class="shop-item">
-        <img src="images/proyecto-icon-2.svg" alt="Obra 2">
-        <div class="shop-item-info">
-          <p class="shop-item-title">Nombre de la obra</p>
-          <p class="shop-item-price">$0.00 USD</p>
-          <a href="https://buy.stripe.com/REEMPLAZAR-LINK-2" class="shop-item-buy" target="_blank">Comprar</a>
+
+      <!-- Item 2 -->
+      <div class="bg-white rounded-lg overflow-hidden shadow-md flex flex-col">
+        <img src="images/proyecto-icon-2.svg" alt="Obra 2"
+             class="w-full aspect-square object-contain bg-[#f4f1ea] p-3">
+        <div class="p-3 text-center">
+          <p class="text-sm font-bold text-zinc-800 m-0 mb-0.5">Nombre de la obra</p>
+          <p class="text-xs text-zinc-500 m-0 mb-3">$0.00 USD</p>
+          <a href="https://buy.stripe.com/REEMPLAZAR-LINK-2" target="_blank"
+             class="inline-block bg-zinc-800 text-white text-xs px-4 py-1.5 rounded-full
+                    hover:bg-teal-500 transition-colors duration-150">
+            Comprar
+          </a>
         </div>
       </div>
+
     </div>
   </div>
   <div class="resize-handle"></div>
@@ -348,8 +324,11 @@
     <div class="window-title">Contacto</div>
   </div>
   <div class="window-body">
-    <h3>Hablemos</h3>
-    <p>hello@ejemplo.com<br>Instagram · LinkedIn · Behance</p>
+    <h3 class="text-lg font-serif mb-3">Hablemos</h3>
+    <p class="text-sm leading-relaxed text-zinc-700">
+      hello@ejemplo.com<br>
+      Instagram · LinkedIn · Behance
+    </p>
   </div>
   <div class="resize-handle"></div>
 </div>
@@ -366,14 +345,14 @@
 
   let topZ = 10;
 
-  // Bloquea el pinch-zoom en iOS/Safari (que ignora user-scalable=no)
+  // Bloquea el pinch-zoom en iOS/Safari
   document.addEventListener('gesturestart', (e) => e.preventDefault());
   document.addEventListener('gesturechange', (e) => e.preventDefault());
   document.addEventListener('gestureend', (e) => e.preventDefault());
   document.addEventListener('touchmove', (e) => {
     if (e.touches.length > 1) e.preventDefault();
   }, { passive: false });
-  // Bloquea el doble-tap-para-zoom
+
   let lastTouchEnd = 0;
   document.addEventListener('touchend', (e) => {
     const now = Date.now();
@@ -381,11 +360,6 @@
     lastTouchEnd = now;
   }, false);
 
-  // Tamaño real de la página: se mide directo del body, el mismo
-  // contenedor del que dependen la barra superior, el dock y el fondo.
-  // Así las ventanas modales nunca quedan desfasadas respecto al resto,
-  // incluso en escenarios de iPad (Split View / Stage Manager) donde
-  // window.innerWidth puede no coincidir exactamente con el layout real.
   function getViewportHeight() {
     return document.body.getBoundingClientRect().height;
   }
@@ -393,7 +367,6 @@
     return document.body.getBoundingClientRect().width;
   }
 
-  // Mantener las ventanas dentro de los límites cuando cambia el tamaño de la pantalla
   function clampWindowToViewport(win) {
     const maxW = getViewportWidth();
     const maxH = getViewportHeight();
