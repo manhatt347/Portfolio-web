@@ -52,7 +52,7 @@
     justify-content: center;
     align-items: flex-start;
     align-content: flex-start;
-    gap: calc(var(--hero-size) * 0.033);
+    gap: calc(var(--hero-size) * 0.055);
   }
   .folder {
     width: auto;
@@ -66,7 +66,7 @@
     z-index: 1;
   }
   .folder-icon {
-    width: calc(var(--hero-size) * 0.18);
+    width: calc(var(--hero-size) * 0.30);
     height: auto;
     margin: 0 auto 8px;
     object-fit: contain;
@@ -74,8 +74,8 @@
     display: block;
   }
   .folder-icon-css {
-    width: calc(var(--hero-size) * 0.117);
-    height: calc(var(--hero-size) * 0.0945);
+    width: calc(var(--hero-size) * 0.195);
+    height: calc(var(--hero-size) * 0.1575);
     margin: 0 auto 6px;
     background: #ECD06F;
     border-radius: 3px 6px 6px 6px;
@@ -86,13 +86,13 @@
   .folder-icon-css::before {
     content: '';
     position: absolute;
-    top: calc(var(--hero-size) * -0.018); left: 0;
-    width: calc(var(--hero-size) * 0.054); height: calc(var(--hero-size) * 0.018);
+    top: calc(var(--hero-size) * -0.03); left: 0;
+    width: calc(var(--hero-size) * 0.09); height: calc(var(--hero-size) * 0.03);
     background: #ECD06F;
     border-radius: 3px 3px 0 0;
   }
   .folder:hover .folder-icon { transform: translateY(-3px) scale(1.05); }
-  .folder-label { font-size: clamp(8px, calc(var(--hero-size) * 0.025), 14px); }
+  .folder-label { font-size: clamp(9px, calc(var(--hero-size) * 0.042), 18px); }
 
   /* Ventana */
   .window {
