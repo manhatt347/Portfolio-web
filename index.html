@@ -12,7 +12,7 @@
   body {
     margin: 0;
     height: 100vh;
-    height: calc(var(--vh, 1vh) * 100);
+    height: 100dvh;
     overflow: hidden;
     background: linear-gradient(160deg, #f7f9f0 0%, #eaf5d0 55%, #cfe89a 100%);
     font-family: 'Courier New', monospace;
@@ -41,8 +41,7 @@
   /* Iconos de carpetas en el escritorio */
   .desktop {
     position: relative;
-    height: calc(100vh - 28px - 46px);
-    height: calc(var(--vh, 1vh) * 100 - 28px - 46px);
+    height: calc(100% - 28px - 46px);
     padding: 24px;
   }
   .folder {
@@ -365,20 +364,14 @@
     lastTouchEnd = now;
   }, false);
 
-  // Corrige el problema de 100vh en Safari/iPad, donde la altura real
-  // no se recalcula sola al cambiar la barra de Safari o rotar la pantalla.
-  // Usa Visual Viewport API cuando está disponible, ya que es más precisa
-  // que window.innerHeight en iOS (Split View, barra de direcciones, etc.)
+  // Altura real de la página: usa Visual Viewport API cuando está
+  // disponible (más precisa en iOS: Split View, barra de direcciones, etc.)
   function getViewportHeight() {
     return window.visualViewport ? window.visualViewport.height : window.innerHeight;
   }
   function getViewportWidth() {
     return window.visualViewport ? window.visualViewport.width : window.innerWidth;
   }
-  function setViewportHeight() {
-    document.documentElement.style.setProperty('--vh', (getViewportHeight() * 0.01) + 'px');
-  }
-  setViewportHeight();
 
   // Mantener las ventanas dentro de los límites cuando cambia el tamaño de la pantalla
   function clampWindowToViewport(win) {
@@ -409,7 +402,6 @@
   }
 
   function handleViewportChange() {
-    setViewportHeight();
     clampAllOpenWindows();
   }
   window.addEventListener('resize', handleViewportChange);
@@ -417,14 +409,6 @@
   if (window.visualViewport) {
     window.visualViewport.addEventListener('resize', handleViewportChange);
     window.visualViewport.addEventListener('scroll', handleViewportChange);
-  }
-
-  // Respaldo robusto: observa el tamaño real de la página directamente,
-  // sin depender de eventos que puedan verse interferidos por una ventana
-  // modal con el puntero capturado (arrastre/resize en curso).
-  if (window.ResizeObserver) {
-    const ro = new ResizeObserver(() => handleViewportChange());
-    ro.observe(document.documentElement);
   }
 
   function openWindow(id) {
