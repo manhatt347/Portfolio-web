@@ -70,7 +70,7 @@
     z-index: 1;
   }
   .icon-slot {
-    height: calc(var(--hero-size) * 0.36);
+    height: calc(var(--hero-size) * 0.30);
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -84,9 +84,9 @@
     transition: transform 0.15s ease;
     display: block;
   }
-  .folder-icon-grande {
-    width: calc(var(--hero-size) * 0.36);
-    max-height: 100%;
+  .folder-icon-ajustado {
+    width: calc(var(--hero-size) * 0.26);
+    max-height: 90%;
   }
   .folder-icon-css {
     width: calc(var(--hero-size) * 0.195);
@@ -107,7 +107,7 @@
     border-radius: 3px 3px 0 0;
   }
   .folder:hover .folder-icon { transform: translateY(-3px) scale(1.05); }
-  .folder:hover .folder-icon-grande { transform: translateY(-3px) scale(1.05); }
+  .folder:hover .folder-icon-ajustado { transform: translateY(-3px) scale(1.05); }
   .folder:hover .folder-icon-css { transform: translateY(-3px) scale(1.05); }
   .folder-label { font-size: clamp(9px, calc(var(--hero-size) * 0.042), 18px); }
 
@@ -232,15 +232,15 @@
 <div class="desktop">
   <img src="images/hattlas-logo.png" class="hero-icon" alt="">
   <div class="folder" onclick="openWindow('proyectos')">
-    <div class="icon-slot"><img src="images/proyecto-icon-2.svg" class="folder-icon folder-icon-grande" alt="Proyectos"></div>
+    <div class="icon-slot"><img src="images/proyecto-icon-2.svg" class="folder-icon" alt="Proyectos"></div>
     <div class="folder-label">Proyectos</div>
   </div>
   <div class="folder" onclick="openWindow('coleccion')">
-    <div class="icon-slot"><img src="images/coleccion-icon.png" class="folder-icon" alt="Colección"></div>
+    <div class="icon-slot"><img src="images/coleccion-icon.png" class="folder-icon folder-icon-ajustado" alt="Colección"></div>
     <div class="folder-label">Colección</div>
   </div>
   <div class="folder" onclick="openWindow('contacto')">
-    <div class="icon-slot"><img src="images/proyecto-icon-vectorizado_nuevo.svg" class="folder-icon" alt="Contacto"></div>
+    <div class="icon-slot"><img src="images/proyecto-icon-vectorizado_nuevo.svg" class="folder-icon folder-icon-ajustado" alt="Contacto"></div>
     <div class="folder-label">Contacto</div>
   </div>
 </div>
