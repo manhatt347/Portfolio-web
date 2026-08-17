@@ -230,10 +230,6 @@
     <div class="icon-slot"><img src="images/proyecto-icon-2.svg" class="folder-icon" alt="Proyectos"></div>
     <div class="folder-label">Proyectos</div>
   </div>
-  <div class="folder" onclick="openWindow('about')">
-    <div class="icon-slot"><div class="folder-icon-css"></div></div>
-    <div class="folder-label">Sobre mí</div>
-  </div>
   <div class="folder" onclick="openWindow('coleccion')">
     <div class="icon-slot"><img src="images/coleccion-icon.png" class="folder-icon" alt="Colección"></div>
     <div class="folder-label">Colección</div>
@@ -246,7 +242,6 @@
 
 <div class="dock">
   <div class="dock-icon" onclick="openWindow('proyectos')"></div>
-  <div class="dock-icon" onclick="openWindow('about')"></div>
   <div class="dock-icon" onclick="openWindow('coleccion')"></div>
   <div class="dock-icon" onclick="openWindow('contacto')"></div>
 </div>
@@ -259,20 +254,6 @@
   </div>
   <div class="window-body window-body-icons">
     <img src="images/proyecto-icon-2.svg" class="project-icon-inside" alt="Proyecto">
-  </div>
-  <div class="resize-handle"></div>
-</div>
-
-<div class="window" id="win-about" style="top:130px; left:260px;">
-  <div class="window-titlebar" data-win="about">
-    <div class="window-close" onclick="closeWindow('about')">×</div>
-    <div class="window-title">Sobre mí</div>
-  </div>
-  <div class="window-body">
-    <h3 class="text-lg font-serif mb-3">Quién soy</h3>
-    <p class="text-sm leading-relaxed text-zinc-700">
-      Un párrafo de presentación, estilo, trayectoria, clientes destacados. El contenido va acá dentro, como cualquier ventana de sistema operativo.
-    </p>
   </div>
   <div class="resize-handle"></div>
 </div>
