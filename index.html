@@ -65,10 +65,17 @@
     position: relative;
     z-index: 1;
   }
+  .icon-slot {
+    height: calc(var(--hero-size) * 0.30);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
   .folder-icon {
     width: calc(var(--hero-size) * 0.30);
+    max-height: 100%;
     height: auto;
-    margin: 0 auto 8px;
     object-fit: contain;
     transition: transform 0.15s ease;
     display: block;
@@ -76,7 +83,7 @@
   .folder-icon-css {
     width: calc(var(--hero-size) * 0.195);
     height: calc(var(--hero-size) * 0.1575);
-    margin: 0 auto 6px;
+    margin: 0 auto;
     background: #ECD06F;
     border-radius: 3px 6px 6px 6px;
     position: relative;
@@ -251,19 +258,19 @@
 <div class="desktop">
   <img src="images/hattlas-logo.png" class="hero-icon" alt="">
   <div class="folder" onclick="openWindow('proyectos')">
-    <img src="images/proyecto-icon-2.svg" class="folder-icon" alt="Proyectos">
+    <div class="icon-slot"><img src="images/proyecto-icon-2.svg" class="folder-icon" alt="Proyectos"></div>
     <div class="folder-label">Proyectos</div>
   </div>
   <div class="folder" onclick="openWindow('about')">
-    <div class="folder-icon-css"></div>
+    <div class="icon-slot"><div class="folder-icon-css"></div></div>
     <div class="folder-label">Sobre mí</div>
   </div>
   <div class="folder" onclick="openWindow('coleccion')">
-    <div class="folder-icon-css"></div>
+    <div class="icon-slot"><div class="folder-icon-css"></div></div>
     <div class="folder-label">Colección</div>
   </div>
   <div class="folder" onclick="openWindow('contacto')">
-    <img src="images/proyecto-icon-vectorizado_nuevo.svg" class="folder-icon" alt="Contacto">
+    <div class="icon-slot"><img src="images/proyecto-icon-vectorizado_nuevo.svg" class="folder-icon" alt="Contacto"></div>
     <div class="folder-label">Contacto</div>
   </div>
 </div>
