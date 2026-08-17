@@ -365,13 +365,16 @@
     lastTouchEnd = now;
   }, false);
 
-  // Altura real de la página: usa Visual Viewport API cuando está
-  // disponible (más precisa en iOS: Split View, barra de direcciones, etc.)
+  // Tamaño real de la página: se mide directo del body, el mismo
+  // contenedor del que dependen la barra superior, el dock y el fondo.
+  // Así las ventanas modales nunca quedan desfasadas respecto al resto,
+  // incluso en escenarios de iPad (Split View / Stage Manager) donde
+  // window.innerWidth puede no coincidir exactamente con el layout real.
   function getViewportHeight() {
-    return window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    return document.body.getBoundingClientRect().height;
   }
   function getViewportWidth() {
-    return window.visualViewport ? window.visualViewport.width : window.innerWidth;
+    return document.body.getBoundingClientRect().width;
   }
 
   // Mantener las ventanas dentro de los límites cuando cambia el tamaño de la pantalla
@@ -444,8 +447,8 @@
     function onMove(ev) {
       const winW = win.offsetWidth;
       const winH = win.offsetHeight;
-      const maxLeft = window.innerWidth - winW;
-      const maxTop = window.innerHeight - winH;
+      const maxLeft = getViewportWidth() - winW;
+      const maxTop = getViewportHeight() - winH;
 
       let newLeft = ev.clientX - offsetX;
       let newTop = ev.clientY - offsetY;
@@ -484,8 +487,8 @@
     e.target.setPointerCapture(e.pointerId);
 
     function onMove(ev) {
-      const maxW = window.innerWidth - winRect.left;
-      const maxH = window.innerHeight - winRect.top;
+      const maxW = getViewportWidth() - winRect.left;
+      const maxH = getViewportHeight() - winRect.top;
 
       const newW = Math.min(Math.max(220, startW + (ev.clientX - startX)), maxW);
       const newH = Math.min(Math.max(160, startH + (ev.clientY - startY)), maxH);
