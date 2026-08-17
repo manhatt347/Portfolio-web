@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>Escritorio Demo</title>
 <style>
+  :root {
+    --hero-size: min(60vw, 60vh);
+  }
   * { box-sizing: border-box; }
   html {
     touch-action: manipulation;
@@ -44,9 +47,15 @@
     position: relative;
     height: calc(100% - 28px - 46px);
     padding: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
+    gap: 16px;
   }
   .folder {
-    width: 84px;
+    width: auto;
     text-align: center;
     cursor: pointer;
     color: white;
@@ -57,7 +66,7 @@
     z-index: 1;
   }
   .folder-icon {
-    width: 80px;
+    width: calc(var(--hero-size) * 0.18);
     height: auto;
     margin: 0 auto 8px;
     object-fit: contain;
@@ -223,8 +232,8 @@
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-    width: min(60vw, 60vh);
-    height: min(60vw, 60vh);
+    width: var(--hero-size);
+    height: var(--hero-size);
     object-fit: contain;
     opacity: 0.9;
     pointer-events: none;
